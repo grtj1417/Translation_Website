@@ -129,4 +129,7 @@ async function mi2s_translation(src: string, tgt: string, inputString: string) {
         throw error;
     }
 }
+
+
+
 export { translate };

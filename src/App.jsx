@@ -124,7 +124,7 @@ function App() {
   return (
     <div className='container'>
       <h1 className='header'>
-        Mi2s Translation Pre-Post  processing displaying website
+        {t("TITLE_TEXT")}
       </h1>
 
       <div className='main-content' style={{ height: showFullHistory ? "120vh" : "105vh" }}>
