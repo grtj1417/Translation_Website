@@ -122,6 +122,7 @@ async function mi2s_translation(src: string, tgt: string, inputString: string) {
                 "before_translation": responseData.before_translation,
                 "message": responseData.message,
               };
+            return emptyData;
         }
     } catch (error) {
         console.error('There was an error!', error);
