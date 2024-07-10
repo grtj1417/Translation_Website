@@ -35,7 +35,7 @@ async function mi2s_translation(src: string, tgt: string, inputString: string) {
         if (tgt == "en") {
             model = 'zh2en_0406Osborn';
         } else if (tgt == "id") {
-            model = 'zh2id_kevin';
+            model = 'zh2id_0528';
         } else if (tgt == "tai") {
             model = 'zh2tai';
         } else if (tgt == "hakka") {
@@ -89,7 +89,7 @@ async function mi2s_translation(src: string, tgt: string, inputString: string) {
         "model": model
     };
     // 如果跟印尼文有相關 call 147 
-    var isSpecial: boolean = src == "id" || tgt == "id";
+    var isSpecial: boolean = src == "zh" && tgt == "id";
     var url: string = isSpecial ? specialurl : normalurl;
 
     try {
