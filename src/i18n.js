@@ -5,6 +5,7 @@ import { initReactI18next } from 'react-i18next';
 const resources = {
     en: {
         translation: {
+            "TITLE_TEXT":"Mi2s MultiLingual Translation Pre-Post processing displaying website",
             "select_language": "Select Language",
             "input_language": "Enter text",
             "translate": "Translate",
@@ -18,6 +19,7 @@ const resources = {
     },
     zh: {
         translation: {
+            "TITLE_TEXT":"Mi2s 多語翻譯前處理後處理展示網頁",
             "select_language": "選擇語言",
             "input_language": "輸入文字",
             "translate": "翻譯",
@@ -30,6 +32,7 @@ const resources = {
     },
     id: {
         translation: {
+            "TITLE_TEXT":"Halaman web tampilan pra-pemrosesan dan pasca-pemrosesan terjemahan multibahasa Mi2s",
             "select_language": "Pilih Bahasa",
             "input_language": "Masukkan teks",
             "translate": "Terjemahkan",

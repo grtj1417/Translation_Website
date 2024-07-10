@@ -124,15 +124,7 @@ function App() {
   return (
     <div className='container'>
       <h1 className='header'>
-        Mi2s Translation Pre-Post  processing displaying website
-        <select value={inputLanguage} onChange={handleInputLanguageChange}>
-                {languages.map((lang) => (
-                  <option key={lang.code} value={lang.code}>
-                    {lang.label}
-                    <img src="./images/Taiwan.png" alt=""/>
-                  </option>
-                ))}
-              </select>
+        {t("TITLE_TEXT")}
       </h1>
 
       <div className='main-content' style={{ height: showFullHistory ? "120vh" : "105vh" }}>
