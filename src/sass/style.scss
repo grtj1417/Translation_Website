@@ -62,6 +62,7 @@ body {
     padding: 0;
     background-color: #EFF1F3;
     font-family: 'Noto Sans';
+    font-size: 24px;
     cursor: default;
 }
 
@@ -108,7 +109,6 @@ button {
             left: 0%;
             opacity: 0;
         }
-
         to {
             left: 100%;
             opacity: 1;
@@ -118,7 +118,7 @@ button {
 
 .area-title {
     color: white;
-    font-size: 26px;
+    font-size: 24px;
     font-weight: bold;
     margin-left: 10px;
     margin-bottom: 10px;
@@ -198,7 +198,7 @@ button {
 
         .preprocessed-area {
             flex: .5 .5;
-            margin-top: 7px;
+            margin-top: 5px;
             align-self: center;
 
             .translation-area-title2 {
@@ -359,7 +359,7 @@ button {
             }
 
             hr {
-                width: 212%;
+                width: 200%;
                 border: .05rem solid rgb(212, 212, 212);
                 margin: 0 auto;
                 margin-bottom: 0;
@@ -368,7 +368,6 @@ button {
             .history-content-title>div {
                 color: #3295b4;
                 font-weight: bold;
-                font-size: 28px;
                 margin-bottom: 10px;
                 position: relative;
                 justify-self: center;

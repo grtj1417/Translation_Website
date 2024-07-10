@@ -125,21 +125,23 @@ function App() {
     <div className='container'>
       <h1 className='header'>
         Mi2s Translation Pre-Post  processing displaying website
+        <select value={inputLanguage} onChange={handleInputLanguageChange}>
+                {languages.map((lang) => (
+                  <option key={lang.code} value={lang.code}>
+                    {lang.label}
+                    <img src="./images/Taiwan.png" alt=""/>
+                  </option>
+                ))}
+              </select>
       </h1>
 
       <div className='main-content' style={{ height: showFullHistory ? "120vh" : "105vh" }}>
         <div className='translation-area'>
           <div className='input-area'>
-            <div className='translation-area-title1'>翻譯</div>
+            <div className='translation-area-title1'>{t('translate')}</div>
             <div>
               <label></label>
-              <select value={inputLanguage} onChange={handleInputLanguageChange}>
-                {languages.map((lang) => (
-                  <option key={lang.code} value={lang.code}>
-                    {lang.label}
-                  </option>
-                ))}
-              </select>
+
             </div>
             <label htmlFor='translation-input'></label>
             <div>
@@ -153,7 +155,7 @@ function App() {
                 placeholder={t('input_language')}
                 required
               />
-              <div className='sound-icon1'></div>
+              {result.before_translation && <div className='sound-icon1'></div>}
               {result.before_translation && (
                 <img
                   className='domain-icon'
@@ -167,7 +169,7 @@ function App() {
 
           {/* preprocessed */}
           <div className='preprocessed-area'>
-            <div className='translation-area-title2'>❱❱ 前處理</div>
+            <div className='translation-area-title2'>❱❱ {t('pre-processed')}</div>
             <div className='preprocessed-area-result'>
               {result.before_translation && (<p>SynonymSub : {result.after_translation.synonymSub}</p>)}
               {result.before_translation && (<p>NerSub : {result.after_translation.nerSub}</p>)}
@@ -184,28 +186,30 @@ function App() {
 
         {/* result */}
         <div className='result-area'>
-          <div className='area-title'>Result</div>
+          <div className='area-title'>{t('result')}</div>
           <div className='translation-result'>
             {result.before_translation && (<p>{showResult}</p>)}
 
-            <div className='postprocessed' onClick={handlePostProcessed}>
+            {result.before_translation && (
+              <div className='postprocessed' onClick={handlePostProcessed}>
               <img className='arrow2' src="./images/arrow2.svg" alt="" />
               {value}
             </div>
-            <div className='sound-icon2'></div>
+            )}
+            {result.before_translation && <div className='sound-icon2'></div>}
           </div>
         </div>
 
 
         {/* history */}
         <div className='history-area'>
-          <div className='area-title'>History</div>
+          <div className='area-title'>{t('history')}</div>
           <div className='history' style={{
             height: showFullHistory ? "470px" : "350px"
           }}>
             <div className='history-content history-content-title'>
-              <div>Input</div>
-              <div>PostProcessed</div>
+              <div>{t('input')}</div>
+              <div>{t('post-processing')}</div>
               <hr></hr>
             </div>
             {history.slice(showFullHistory ? 0 : -3).reverse().map((item, index) => (

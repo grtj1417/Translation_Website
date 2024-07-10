@@ -6,22 +6,38 @@ const resources = {
     en: {
         translation: {
             "select_language": "Select Language",
-            "input_language": "Leave a comment here",
-            "translate": "Translate"
+            "input_language": "Enter text",
+            "translate": "Translate",
+            "pre-processed": "Pre-processed",
+            "result": "Result",
+            "history": "History",
+            "input": "Input",
+            "post-processing": "Post-processing",
+            
         }
     },
     zh: {
         translation: {
             "select_language": "選擇語言",
             "input_language": "輸入文字",
-            "translate": "翻譯"
+            "translate": "翻譯",
+            "pre-processed": "前處理",
+            "result": "結果",
+            "history": "歷史紀錄",
+            "input": "輸入",
+            "post-processing": "後處理",
         }
     },
     id: {
         translation: {
             "select_language": "Pilih Bahasa",
-            "input_language": "Bahasa Input",
-            "translate": "Terjemahkan"
+            "input_language": "Masukkan teks",
+            "translate": "Terjemahkan",
+            "pre-processed": "Pra-pemrosesan",
+            "result": "Hasil",
+            "history": "Catatan Sejarah",
+            "input": "Memasuki",
+            "post-processing": "Pengolahan pasca",
         }
     }
 };
