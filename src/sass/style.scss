@@ -3,21 +3,21 @@
 
 @mixin textArea {
     overflow: auto;
-    height: 250px;
+    height: 220px;
     border: none;
     box-sizing: border-box;
     background-color: rgb(255, 255, 255);
-    font-size: 24px;
+    font-size: 22px;
     font-family: 'Noto Sans';
-    padding: 15px 40px;
+    padding: 15px 35px;
     border-radius: 20px;
     box-shadow: 3px 3px 7px rgb(28, 28, 28);
     align-self: center;
 }
 
 @mixin btn {
-    font-size: 18px;
-    padding: 4px 10px 7px;
+    font-size: 16px;
+    padding: 0px 10px 7px;
     border-radius: 10px;
     box-shadow: 1px 1px 3px rgb(67, 67, 67);
     cursor: pointer;
@@ -80,7 +80,7 @@ button {
 }
 
 ::placeholder {
-    font-size: 24px;
+    font-size: 22px;
     color: rgb(197, 197, 197);
     padding-left: 0;
     position: absolute;
@@ -99,7 +99,9 @@ button {
     text-shadow: .04em .04em .1em rgb(157, 157, 157);
     margin-left: 1rem;
     animation: fade 1.3s linear 0s;
-    font-size: 36px;
+    font-size: 34px;
+    margin-bottom: 12px;
+    margin-top: 15px;
 
     @keyframes fade {
         from {
@@ -116,10 +118,16 @@ button {
 
 .area-title {
     color: white;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: bold;
     margin-left: 10px;
     margin-bottom: 10px;
+}
+
+.container {
+    position: relative;
+    overflow: hidden;
+    padding: .5rem 3rem 2rem;
 }
 
 .main-content {
@@ -127,11 +135,11 @@ button {
     display: grid;
     grid-template-columns: 1.3fr 50px 1fr;
     grid-template-rows: 1fr 2fr;
-    row-gap: .5rem;
+    row-gap: 1rem;
     column-gap: 1.5rem;
     background-image: linear-gradient(to right bottom, rgb(66, 93, 116), #33495c, #233646);
     border-radius: 15px;
-    padding: .5rem 2.5rem 2rem;
+    padding: 1rem 2.5rem 2rem;
 
     .translation-area {
         grid-column: 1/2;
@@ -143,10 +151,11 @@ button {
             flex: .5 .5;
             margin-top: 7px;
             align-self: center;
+            position: relative;
 
             .translation-area-title1 {
                 color: white;
-                font-size: 28px;
+                font-size: 24px;
                 font-weight: bold;
                 margin-left: 10px;
                 margin-bottom: 10px;
@@ -157,16 +166,33 @@ button {
                 @include textArea();
                 width: calc(100% - .5rem);
                 border-radius: 20px 3px 3px 20px;
-                padding: 40px;
+                padding: 40px 33px 30px;
             }
 
             .domain-icon {
-                width: 45px;
-                height: 45px;
+                width: calc(1vw + 1.5rem);
+                height: calc(1vw + 1.5rem);
                 position: absolute;
-                bottom: 43px;
+                bottom: 25px;
                 left: 25px;
                 background-color: white;
+            }
+
+            .sound-icon1 {
+                width: calc(.5vw + 1.5rem);
+                height: calc(.5vw + 1.5rem);
+                position: absolute;
+                z-index: 99;
+                right: 30px;
+                bottom: 22px;
+                cursor: pointer;
+                transition: all 0.25s ease;
+                background: url("../../public/images/sound.svg") no-repeat;
+
+                &:hover {
+                    opacity: 0.7;
+                    transform: translateY(-2px);
+                }
             }
         }
 
@@ -177,7 +203,7 @@ button {
 
             .translation-area-title2 {
                 color: #98daee;
-                font-size: 20px;
+                font-size: 18px;
                 font-weight: bold;
                 margin-left: 15px;
                 margin-top: 5px;
@@ -197,7 +223,7 @@ button {
         grid-row: 1/2;
         align-self: center;
         justify-self: center;
-        margin-top: 20px;
+        margin-top: 25px;
 
         .arrow3 {
             @include btn();
@@ -205,19 +231,19 @@ button {
             height: 40px;
             padding: 5px;
             cursor: pointer;
-            background: url("./arrow3_white.svg") no-repeat;
+            background: url("../../public/images/arrow3_white.svg") no-repeat;
             background-color: #fab106;
             background-color: #3295b4;
             border-radius: 10px;
             box-shadow: 5px 6px 0px rgb(3, 30, 43);
 
             &:hover {
-                background: url("./arrow3.svg") no-repeat;
+                background: url("../../public/images/arrow3.svg") no-repeat;
                 background-color: white;
             }
 
             &:active {
-                background: url("./arrow3.svg") no-repeat;
+                background: url("../../public/images/arrow3.svg") no-repeat;
                 background-color: white;
             }
         }
@@ -234,6 +260,7 @@ button {
         }
     }
 
+
     .result-area {
         grid-column: 3/4;
         grid-row: 1/2;
@@ -249,15 +276,32 @@ button {
         .postprocessed {
             @include btn();
             position: absolute;
-            right: 25px;
-            bottom: 30px;
+            font-size: 16px;
+            right: 20px;
+            bottom: 20px;
 
             .arrow2 {
                 width: 25px;
             }
         }
-    }
 
+        .sound-icon2 {
+            width: calc(.5vw + 1.5rem);
+            height: calc(.5vw + 1.5rem);
+            position: absolute;
+            right: 180px;
+            bottom: 22px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            background: url("../../public/images/sound.svg") no-repeat;
+
+            &:hover {
+                opacity: 0.7;
+                transform: translateY(-2px);
+            }
+        }
+
+    }
 
 
     .history-area {
@@ -267,7 +311,7 @@ button {
         .history {
             @include textArea();
             height: 90%;
-            padding: 60px 50px 20px;
+            padding: 40px 50px 20px;
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
@@ -306,7 +350,7 @@ button {
                 padding-bottom: 20px;
                 padding-top: 20px;
             }
-            
+
 
             .history-content-hover:hover {
                 transform: translateY(-2px);
@@ -324,7 +368,7 @@ button {
             .history-content-title>div {
                 color: #3295b4;
                 font-weight: bold;
-                font-size: 30px;
+                font-size: 28px;
                 margin-bottom: 10px;
                 position: relative;
                 justify-self: center;
@@ -343,7 +387,7 @@ button {
             background-color: #3295b4;
             border-radius: 0 0 10px 10px;
             color: white;
-            margin: 0 auto;
+            margin: 0 auto 10px;
 
             .expand-collapse-icon {
                 width: 30px;
@@ -365,12 +409,6 @@ $sway-type: "sway-left-to-right", "sway-right-to-left";
 
 @function sample($list) {
     @return nth($list, random(length($list)));
-}
-
-.container {
-    position: relative;
-    overflow: hidden;
-    padding: .5rem 4rem 2rem;
 }
 
 .bubbles {

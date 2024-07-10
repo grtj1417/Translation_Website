@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { translate } from './api/translateApi';
 import './App.css';
 import './sass/style.scss';
+import { useTranslation } from 'react-i18next';
+import './i18n';
 
 function App() {
   var emptyData = {
@@ -19,16 +21,32 @@ function App() {
 
   const [result, setResult] = useState(emptyData);
   const [input, setInput] = useState("");
-  const [value, setValue] = useState("PostProcessed");
   const [domainImgSrc, setDomainImgSrc] = useState("#");
-  const [history, setHistory] = useState([]);
+  //後處理
+  const [value, setValue] = useState("PostProcessed");
   const [showResult, setShowResult] = useState("");
+  //history
+  const [history, setHistory] = useState([]);
   const [showFullHistory, setShowFullHistory] = useState(false);
+
+  const { t, i18n } = useTranslation();
+  const [inputLanguage, setInputLanguage] = useState('zh');
+  const [translateTo, setTranslateTo] = useState('id');
+
+
+  const languages = [
+    { code: 'en', label: 'English' },
+    { code: 'zh', label: '中文' },
+    { code: 'id', label: 'Bahasa Indonesia' }
+  ];
 
   const handleTranslate = async () => {
     try {
       const element = document.querySelector('.translation-area-title2');
-      element.classList.add('move-left-right'); // 添加动画类名
+      //前處理動畫
+      if (result.before_translation) {
+        element.classList.add('move-left-right');
+      }
       console.log(input);
       const res = await translate(input, "zh2id_0528");
       console.log(res);
@@ -36,22 +54,22 @@ function App() {
 
       switch (res.after_translation.domain) {
         case "FOOD":
-          setDomainImgSrc("./eat.svg");
+          setDomainImgSrc("./images/eat.svg");
           break;
         case "CLO":
-          setDomainImgSrc("./cloth.svg");
+          setDomainImgSrc("./images/cloth.svg");
           break;
         case "LIV":
-          setDomainImgSrc("./home.svg");
+          setDomainImgSrc("./images/home.svg");
           break;
         case "COMUT":
-          setDomainImgSrc("./car.svg");
+          setDomainImgSrc("./images/car.svg");
           break;
         case "EDU":
-          setDomainImgSrc("./teach.svg");
+          setDomainImgSrc("./images/teach.svg");
           break;
         case "SUM":
-          setDomainImgSrc("entertainment.svg");
+          setDomainImgSrc("./images/entertainment.svg");
           break;
         default:
           setDomainImgSrc("#");
@@ -93,37 +111,61 @@ function App() {
     }
   }
 
+  const handleInputLanguageChange = (event) => {
+    const selectedLanguage = event.target.value;
+    setInputLanguage(selectedLanguage);
+    i18n.changeLanguage(selectedLanguage);
+  };
+
+  const handleTranslateToChange = (event) => {
+    setTranslateTo(event.target.value);
+  };
+
   return (
     <div className='container'>
       <h1 className='header'>
         Mi2s Translation Pre-Post  processing displaying website
       </h1>
 
-      <div className='main-content' style={{height: showFullHistory ? "120vh" : "95vh"}}>
+      <div className='main-content' style={{ height: showFullHistory ? "120vh" : "105vh" }}>
         <div className='translation-area'>
           <div className='input-area'>
             <div className='translation-area-title1'>翻譯</div>
+            <div>
+              <label></label>
+              <select value={inputLanguage} onChange={handleInputLanguageChange}>
+                {languages.map((lang) => (
+                  <option key={lang.code} value={lang.code}>
+                    {lang.label}
+                  </option>
+                ))}
+              </select>
+            </div>
             <label htmlFor='translation-input'></label>
-            <textarea
-              className='translation-input'
-              name='translation-input'
-              id='translation-input'
-              type="text"
-              value={input}
-              onChange={handleInput}
-              placeholder='Leave a comment here'
-              required
-            />
-            {result.before_translation && (
-              <img
-                className='domain-icon'
-                src={domainImgSrc}
-                alt=""
-                title={"Domain: " + result.after_translation.domain}
+            <div>
+              <textarea
+                className='translation-input'
+                name='translation-input'
+                id='translation-input'
+                type="text"
+                value={input}
+                onChange={handleInput}
+                placeholder={t('input_language')}
+                required
               />
-            )}
+              <div className='sound-icon1'></div>
+              {result.before_translation && (
+                <img
+                  className='domain-icon'
+                  src={domainImgSrc}
+                  alt=""
+                  title={"Domain: " + result.after_translation.domain}
+                />
+              )}
+            </div>
           </div>
 
+          {/* preprocessed */}
           <div className='preprocessed-area'>
             <div className='translation-area-title2'>❱❱ 前處理</div>
             <div className='preprocessed-area-result'>
@@ -133,26 +175,33 @@ function App() {
           </div>
         </div>
 
+
+        {/* translate btn */}
         <div className='translation-submit'>
           <div className='arrow3' onClick={handleTranslate}></div>
         </div>
 
+
+        {/* result */}
         <div className='result-area'>
           <div className='area-title'>Result</div>
           <div className='translation-result'>
             {result.before_translation && (<p>{showResult}</p>)}
 
             <div className='postprocessed' onClick={handlePostProcessed}>
-              <img className='arrow2' src="./arrow2.svg" alt="" />
+              <img className='arrow2' src="./images/arrow2.svg" alt="" />
               {value}
             </div>
+            <div className='sound-icon2'></div>
           </div>
         </div>
 
+
+        {/* history */}
         <div className='history-area'>
           <div className='area-title'>History</div>
           <div className='history' style={{
-            height: showFullHistory ? "600px" : "360px"
+            height: showFullHistory ? "470px" : "350px"
           }}>
             <div className='history-content history-content-title'>
               <div>Input</div>
@@ -168,7 +217,7 @@ function App() {
           </div>
           {history.length > 3 && (
             <div onClick={() => setShowFullHistory(!showFullHistory)} className='expand-collapse'>
-              {showFullHistory ? <img className='expand-collapse-icon' src='./arrow_up.svg' /> : <img className='expand-collapse-icon' src='./arrow_down.svg' />}
+              {showFullHistory ? <img className='expand-collapse-icon' src='./images/arrow_up.svg' /> : <img className='expand-collapse-icon' src='./images/arrow_down.svg' />}
             </div>
           )}
         </div>

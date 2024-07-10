@@ -22,8 +22,7 @@ async function translate(input: string, model: string){
         return responseData;
     } catch (error) {
         console.error('There was an error!', error);
+        throw error;
     }
-
-
 }
 export {translate};
