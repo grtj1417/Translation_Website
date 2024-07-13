@@ -6,7 +6,7 @@ import requests
 import os
 
 app = Flask(__name__, static_folder='dist')
-client = Client()
+
 @app.route('/')
 def serve():
     return send_from_directory(app.static_folder, 'index.html')
@@ -18,6 +18,20 @@ def serve_static(path):
         return send_from_directory(app.static_folder, path)
     else:
         return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/translate', methods=['POST'])
+def translate():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "Invalid input"}), 400
+    url = data.get('url')
+    model = data.get('model')
+    translation_text = data.get('translation_text')
+
+    data = requests.post(url, data={"translation_text": translation_text, "model": model})
+    print(data.json())
+    return data.json()
 
 @app.route('/stt', methods=['POST'])
 def stt():
@@ -48,18 +62,15 @@ def sttIndo():
 
     if not data:
         return jsonify({"error": "Invalid input"}), 400
-
+    
     audio_data = data.get('audio')
-
-
     reqData = {
-            "audio_data": audio_data,
-}
+            "audio": audio_data,
+    }
 
-    res = requests.post("http://140.116.245.147:9000/api/base64_recognition", json=reqData).json()
-    selection = res['words_list'][0].replace("<SPOKEN_NOISE>", "").strip()
-
-    return {"stt_output": selection, "message": "success"}
+    res = requests.post("http://140.116.245.147:9000/api/base64_recognition", json=reqData)
+    
+    return {"stt_output": res.text, "message": "success"}
 
 @app.route('/tts', methods=['POST'])
 def tts():
@@ -71,11 +82,12 @@ def tts():
     audio_text = data.get("text")
     audio_language = data.get("language")
     audio_speaker = data.get("speaker")
-    
+    client = Client()
     client.send(audio_language, audio_speaker, audio_text)
     result = client.receive()
     response_data = json.loads(result.decode("utf-8"))
     # 先 save file 再送 file
+    client.close()
     if not result:
         print('No result')
     else:

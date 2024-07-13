@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { mi2s_translation } from './api/translateApi';
+import { mi2sTts } from './api/mi2sVoiceApis';
 import { useTranslation } from 'react-i18next';
 import Bubbles from './component/BubbleEffect';
 import AudioRecorder from './component/AudioRecorder';
@@ -87,6 +88,11 @@ function App() {
     }
   };
 
+  const handleSynthesis = async (inputLanguage, text) => {
+    console.log(inputLanguage, text);
+    await mi2sTts(inputLanguage, text);
+  };
+
   const handleInput = (e) => {
     setInput(e.target.value);
   };
@@ -167,10 +173,12 @@ function App() {
               />
             )}
 
-            {result.before_translation && <div className='sound-icon1' />}
+            {result.before_translation &&
+             <div onClick={() => handleSynthesis(inputLanguage, input)}
+              className='sound-icon1' />}
 
             {/* <div className='mic-icon-activate' /> */}
-            <AudioRecorder />
+            <AudioRecorder inputLanguage={inputLanguage} />
           </div>
 
         </div>
@@ -207,7 +215,8 @@ function App() {
                 {value}
               </div>
             )}
-            {result.before_translation && <div className='sound-icon2'></div>}
+            {result.before_translation && <div onClick={() => handleSynthesis(translateTo, showResult)}
+              className='sound-icon2' />}
           </div>
         </div>
 

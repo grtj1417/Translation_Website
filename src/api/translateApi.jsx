@@ -84,22 +84,22 @@ async function mi2s_translation(src, tgt, inputString) {
         }
     }
 
-    
-    var data = {
-        "translation_text": inputString,
-        "model": model
-    };
-    console.log(data);
+
     // 如果跟印尼文有相關 call 147 
     var isSpecial = src == "zh" && tgt == "id";
     var url = isSpecial ? specialurl : normalurl;
-
+    var data = {
+        "translation_text": inputString,
+        "model": model,
+        "url": url
+    };
     try {
         console.log(url);
-        const response = await fetch(url, {
+        const response = await fetch("/translate", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                
             },
             body: JSON.stringify(data)
         });

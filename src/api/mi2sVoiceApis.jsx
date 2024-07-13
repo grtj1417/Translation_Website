@@ -24,7 +24,8 @@ async function mi2sStt(
     } else if (recognizeLanguage == "tai") {
         serviceId = 'A005';
     }
-
+    console.log("asdf")
+    console.log(recognizeLanguage);
 
     if (recognizeLanguage == "id") {
         // 目前印尼文套用到 kevin 架設的 whisper API
@@ -37,7 +38,8 @@ async function mi2sStt(
                 {
                     "audio": b64String
                 })
-        });
+        }).then(response => response.json());
+        
         return response;
         
     } else if (origin == "hakka") {
@@ -72,4 +74,52 @@ async function mi2sStt(
         return response;
     }
 }
-export {mi2sStt};
+async function mi2sTts(inputLanguage, inputText) {
+    let speaker = "";
+    
+    switch(inputLanguage) {
+        case "tai":
+            speaker = "2897";
+            inputLanguage = "tw_tl";
+            break;
+        case "zh":
+            speaker = "2825";
+            break;
+        case "en":
+            speaker = "2792";
+            break;
+        case "id":
+            speaker = "2794";
+            break;
+        default:
+            throw new Error("Unsupported language");
+    }
+
+    const data = {
+        text: inputText,
+        language: inputLanguage,
+        speaker: speaker
+    };
+
+    try {
+        const response = await fetch('/tts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const audio = new Audio(url);
+        audio.play();
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+export {mi2sStt, mi2sTts};

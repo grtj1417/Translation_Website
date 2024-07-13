@@ -3,7 +3,7 @@ import json
 import base64
 import time
 import argparse
-import time
+
 """
     給所有人的說明:
     1. 此程式碼為語音合成的 client 端，支援五種語言 (國、台、客語、英語、印尼語)
@@ -19,22 +19,82 @@ import time
     6. 語者代碼請參考 speaker.json，目前支援最多 4821 位語者
     7. 常用名單如下:
         {
-            2775|F01   # 實驗室內部錄音人員 (女性, 台語語者)
-            2792|F06   # 實驗室內部錄音人員 (女性, 台語語者)
-            2794|F14   # 實驗室內部錄音人員 (女性, 台語語者)
-            4793|M60   # 實驗室內部錄音人員 (男性, 國語語者)
-            
-            0~4000 都可以試試看
-            # 可以使用 3000
-            # 2900
+            2775|F01   # 實驗室內部錄音人員
+            2792|F06   # 實驗室內部錄音人員
+            2794|F14   # 實驗室內部錄音人員
+            4777|志淇七七 (youtuber)
+            4778|時間的女兒 (podcast)
+            4779|成大醫院曾醫師
+            4780|聯合報 (UDN)
+            4781|林志堅 
+            4782|瓜吉 (邱威傑)
+            4783|薛瑞元
+            4784|柯文哲
+            4785|韓國瑜
+            4786|侯漢廷
+            4787|謝龍介
+            4788|鄭文燦
+            4789|花藝師吳妮晏 (from youtube video)
+            4790|王世堅
+            4791|陳水扁
+            4792|張豈只 (from youtube video)
+            4793|李沅翰 (實驗室內部錄音人員)
+            4794|趙少康
+            4795|黃偉哲
+            4796|MA_M96 (實驗室內部錄音人員)
+            4797|郭台銘
+            4798|盧秀燕
+            4799|侯友宜
+            4800|江啟程
+            4802|郭正亮
+            4805|陳吉仲
+            4806|陳其邁
+            4807|侯漢廷
+            4808|林佳龍
+            4809|蔣萬安
+            4810|習近平
+            4811|馬英九
+            4812|賴清德
+            4813|蔡英文
+            4814|陳時中
+            2794|F14
+        }
+    8. 政治人物清單:
+        {
+            4781|林志堅 
+            4782|邱威傑
+            4783|薛瑞元
+            4784|柯文哲
+            4785|韓國瑜
+            4786|侯漢廷
+            4787|謝龍介
+            4788|鄭文燦
+            4790|王世堅
+            4791|陳水扁
+            4794|趙少康
+            4795|黃偉哲
+            4797|郭台銘
+            4798|盧秀燕
+            4799|侯友宜
+            4800|江啟程
+            4802|郭正亮
+            4805|陳吉仲
+            4806|陳其邁
+            4807|侯漢廷
+            4808|林佳龍
+            4809|蔣萬安
+            4810|習近平
+            4811|馬英九
+            4812|賴清德
+            4813|蔡英文
+            4814|陳時中
         }
 """
 
 
-SERVER, PORT = '140.116.245.147', 9996
-
+SERVER, PORT = '140.116.245.147', 9999
 END_OF_TRANSMISSION = 'EOT'
-
+FINETUNE_LIST = ["P_M_005", "M95", "M04"]
 class Client:
     def __init__(self):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -43,8 +103,16 @@ class Client:
         self._id = str(10012)
 
     def send(self, language, speaker, data):
-        # if not int(speaker)>=0 or int(speaker)>= 184:
-        #     raise ValueError('Speaker not supported')
+        # check speaker id is valid
+        if speaker not in [str(i) for i in range(0, 4817)] and speaker not in FINETUNE_LIST:
+            raise ValueError("Speaker id must be in range 0 ~ 4815 or in FINETUNE_LIST")
+        
+        if data == "":
+            raise ValueError("Text must be not empty")
+
+        if language not in ['zh', 'tw', 'hakka', 'en', 'id', 'mix', 'tw_tl', 'tw_tl_none', 'phones']:
+            raise ValueError("Language must be one of ['zh', 'tw', 'hakka', 'en', 'id']")
+
         data = bytes(self._id + "@@@" + self._token + "@@@" + language + '@@@' + speaker + '@@@'+ data, "utf-8")
         data += END_OF_TRANSMISSION.encode() # END_OF_TRANSMISSION: 'EOT', end of transmission
         self.sock.sendall(data)
@@ -56,33 +124,18 @@ class Client:
             if not chunk:
                 break
             data += chunk
+
         return data
-    
-    def synthesis(self,language: str,speaker: str,  sentence:str, fname: str):
-        self.__init__()
-        self.send(language, speaker, sentence)
-        result = self.receive()
-        if not result:
-            print('No result')
-        else:
-            response_data = json.loads(result.decode("utf-8"))
-            print(response_data['status'])
-            if response_data.get("status", False):  
-                result_file_data = base64.b64decode(response_data.get("bytes", ""))
-                with open(fname, 'wb') as f:
-                    f.write(result_file_data)
-                print("File received complete")   
-        # time.sleep(1.0)
-        self.close()
+
     def close(self):
         self.sock.close()
 
 if __name__ == '__main__':
     args = argparse.ArgumentParser()
-    text = "pergi ke kamar mandi" # sasa
     args.add_argument('--language', type=str, default='id')
-    args.add_argument('--speaker', type=str, default='147')
-    args.add_argument('--text', type=str, default=text)
+    args.add_argument('--speaker', type=str, default='2794')
+    # args.add_argument('--text', type=str, default="<zh>你好嗎？</zh><t>這個老頭</t>") # language = mix
+    args.add_argument('--text', type=str, default="saya suka apel")
 
     args = args.parse_args()
     client = Client()
@@ -100,5 +153,12 @@ if __name__ == '__main__':
             with open(f"output.wav", 'wb') as f:
                 f.write(result_file_data)
             print("File received complete")
-
-    print('Inference time: {}'.format(time.time() - start_time))
+        else:
+            print(response_data.get("message", ""))
+        if response_data.get("tone_sandhi", ""):
+            print(response_data.get("tone_sandhi", ""))
+        print('Response time: {}'.format(time.time() - start_time))
+    
+    # close connection
+    client.close()
+    

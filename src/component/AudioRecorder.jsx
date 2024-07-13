@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { mi2sStt } from '../api/mi2sVoiceApis';
 
-const AudioRecorder = () => {
+const AudioRecorder = ({ inputLanguage }) => {
     const [isRecording, setIsRecording] = useState(false);
     const [audioBase64, setAudioBase64] = useState('');
     const mediaRecorderRef = useRef(null);
@@ -33,7 +33,7 @@ const AudioRecorder = () => {
                     const base64String = reader.result.split(',')[1];
                     setAudioBase64(base64String);
                     try {
-                        const recognitionResult = await mi2sStt(base64String, 'zh'); // 調用 mi2sStt 函數
+                        const recognitionResult = await mi2sStt(base64String, inputLanguage); // 調用 mi2sStt 函數
                         console.log('Recognition Result:', recognitionResult); // 打印辨識結果
                         // 在這裡處理辨識結果，例如更新 UI 或者進行下一步操作
                     } catch (error) {
