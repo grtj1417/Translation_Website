@@ -30,6 +30,7 @@ async function mi2s_translation(src: string, tgt: string, inputString: string) {
     const specialurl: string = "http://140.116.245.147:1002/translation";
     const normalurl: string = "http://140.116.245.157:1002/translation";
     var model: string = "";
+    console.log(src, tgt);
     // 可以把下面這個 if else 收起來
     if (src == "zh") {
         if (tgt == "en") {
@@ -88,11 +89,13 @@ async function mi2s_translation(src: string, tgt: string, inputString: string) {
         "translation_text": inputString,
         "model": model
     };
+    console.log(data);
     // 如果跟印尼文有相關 call 147 
     var isSpecial: boolean = src == "zh" && tgt == "id";
     var url: string = isSpecial ? specialurl : normalurl;
 
     try {
+        console.log(url);
         const response = await fetch(url, {
             method: "POST",
             headers: {
@@ -133,4 +136,4 @@ async function mi2s_translation(src: string, tgt: string, inputString: string) {
 
 
 
-export { translate };
+export { translate, mi2s_translation };

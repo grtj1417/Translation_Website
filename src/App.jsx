@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { translate } from './api/translateApi';
+import { mi2s_translation } from './api/translateApi';
 import { useTranslation } from 'react-i18next';
-import { Collapse } from 'react-collapse';
+import Bubbles from './component/BubbleEffect';
+
 import HistoryComponent from './component/History';
 import Dialog from './Dialog';
 import './App.css';
@@ -47,14 +48,7 @@ function App() {
 
   const handleTranslate = async () => {
     try {
-      // const element = document.querySelector('.translation-area-title2');
-      //前處理動畫
-      // if (result.before_translation) {
-      //   element.classList.add('move-left-right');
-      // }
-      console.log(input);
-      const res = await translate(input, "zh2id_0528");
-      console.log(res);
+      const res = await mi2s_translation(inputLanguage, translateTo, input);
       setResult(res);
 
       switch (res.after_translation.domain) {
@@ -86,11 +80,6 @@ function App() {
         setHistory(prevHistory => [...prevHistory, res]);
       }
       console.log(history);
-
-      // 等待動畫完成後移除className
-      // element.addEventListener('animationend', () => {
-      //   element.classList.remove('move-left-right');
-      // }, { once: true });
 
     } catch (error) {
       console.error('Translation error:', error);
@@ -258,64 +247,7 @@ function App() {
       </div>
 
       {/* bubbles */}
-      <div className="bubbles">
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-        <div className="bubble"></div>
-      </div>
-
+      <Bubbles />
     </div>
   );
 }
