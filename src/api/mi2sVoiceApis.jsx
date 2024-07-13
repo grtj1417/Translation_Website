@@ -28,7 +28,7 @@ async function mi2sStt(
 
     if (recognizeLanguage == "id") {
         // 目前印尼文套用到 kevin 架設的 whisper API
-        const response = await fetch(ASR_INDO_DEEPL_SERVER, {
+        const response = await fetch("/sttIndo", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -49,13 +49,12 @@ async function mi2sStt(
             },
             body: JSON.stringify(
                 {
-                    "audio": b64String
+                    "audio": b64String,
                 })
         });
         return response;
     } else {
-        const response = await fetch(ASR_SERVER, {
-            // mode: "no-cors",
+        const response = await fetch("/stt", {
             method: "POST", 
             referrerPolicy: "unsafe-url",
             headers: {
@@ -66,9 +65,10 @@ async function mi2sStt(
                 "audio_data": b64String,
                 "audio_format": "wav",
                 "token": "2023@asr@MigrantWorkers",
-                "service_id": serviceId
+                "service_id": serviceId,
             })
-        });
+        }).then(response => response.json());
+        console.log(response);
         return response;
     }
 }
