@@ -54,7 +54,7 @@ def stt():
     res = requests.post("http://140.116.245.149:2802/asr", json=reqData).json()
     selection = res['words_list'][0].replace("<SPOKEN_NOISE>", "").strip()
 
-    return {"stt_output": selection, "message": "success"}
+    return jsonify({"stt_output": selection, "message": "success"})
 
 @app.route('/sttIndo', methods=['POST'])
 def sttIndo():
@@ -70,7 +70,7 @@ def sttIndo():
 
     res = requests.post("http://140.116.245.147:9000/api/base64_recognition", json=reqData)
     
-    return {"stt_output": res.text, "message": "success"}
+    return jsonify({"stt_output": res.text, "message": "success"})
 
 @app.route('/tts', methods=['POST'])
 def tts():

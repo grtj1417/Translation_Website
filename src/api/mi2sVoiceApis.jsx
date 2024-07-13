@@ -24,8 +24,7 @@ async function mi2sStt(
     } else if (recognizeLanguage == "tai") {
         serviceId = 'A005';
     }
-    console.log("asdf")
-    console.log(recognizeLanguage);
+
 
     if (recognizeLanguage == "id") {
         // 目前印尼文套用到 kevin 架設的 whisper API
@@ -70,7 +69,7 @@ async function mi2sStt(
                 "service_id": serviceId,
             })
         }).then(response => response.json());
-        console.log(response);
+   
         return response;
     }
 }

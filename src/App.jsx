@@ -43,9 +43,9 @@ function App() {
 
 
   const languages = [
-    { code: 'en', label: 'English' },
-    { code: 'zh', label: '中文' },
-    { code: 'id', label: 'Bahasa Indonesia' }
+    { code: 'en', label: t('ENGTAG')},
+    { code: 'zh', label: t('ZHTAG') },
+    { code: 'id', label: t("INDOTAG") }
   ];
 
   const handleTranslate = async () => {

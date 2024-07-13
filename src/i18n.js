@@ -13,8 +13,11 @@ const resources = {
             "result": "Result",
             "history": "History",
             "input": "Input",
-            "post-processing": "Post-processing",
-            "country": "Country"
+            "post-processing": "Translation Result",
+            "country": "Country",
+            "ENGTAG": "English",
+            "ZHTAG": "Chinese",
+            "INDOTAG": "Indonesian"
         }
     },
     zh: {
@@ -27,8 +30,11 @@ const resources = {
             "result": "結果",
             "history": "歷史紀錄",
             "input": "輸入",
-            "post-processing": "後處理",
-            "country": "國家"
+            "post-processing": "翻譯結果",
+            "country": "國家",
+            "ENGTAG": "英文",
+            "ZHTAG": "中文",
+            "INDOTAG": "印尼文"
         }
     },
     id: {
@@ -41,8 +47,11 @@ const resources = {
             "result": "Hasil",
             "history": "Catatan Sejarah",
             "input": "Memasuki",
-            "post-processing": "Pengolahan pasca",
-            "country": "Bangsa"
+            "post-processing": "Hasil terjemahan",
+            "country": "Bangsa",
+            "ENGTAG": "Inggris",
+            "ZHTAG": "Cina",
+            "INDOTAG": "Bahasa Indonesia"
         }
     }
 };
