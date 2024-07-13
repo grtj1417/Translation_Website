@@ -299,14 +299,28 @@ select {
                 }
             }
 
-            .mic-icon {
+            .mic-icon-activate {
                 grid-column: 3/4;
                 justify-self: center;
                 width: calc(1vw + 1.5rem);
                 height: calc(1vw + 1.5rem);
                 cursor: pointer;
                 transition: all 0.25s ease;
-                background: url("../../public/images/mic.svg") no-repeat;
+                background: url("../../public/images/mic-activate.svg") no-repeat;
+
+                &:hover {
+                    opacity: 0.7;
+                    transform: translateY(-2px);
+                }
+            }
+            .mic-icon-deactivate {
+                grid-column: 3/4;
+                justify-self: center;
+                width: calc(1vw + 1.5rem);
+                height: calc(1vw + 1.5rem);
+                cursor: pointer;
+                transition: all 0.25s ease;
+                background: url("../../public/images/mic-deactivate.svg") no-repeat;
 
                 &:hover {
                     opacity: 0.7;

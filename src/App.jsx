@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { mi2s_translation } from './api/translateApi';
 import { useTranslation } from 'react-i18next';
 import Bubbles from './component/BubbleEffect';
+import AudioRecorder from './component/AudioRecorder';
 
 import HistoryComponent from './component/History';
 import Dialog from './Dialog';
@@ -167,7 +168,8 @@ function App() {
 
             {result.before_translation && <div className='sound-icon1' />}
 
-            <div className='mic-icon' />
+            {/* <div className='mic-icon-activate' /> */}
+            <AudioRecorder />
           </div>
 
         </div>
