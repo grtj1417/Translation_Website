@@ -173,12 +173,12 @@ function App() {
               />
             )}
 
-            {result.before_translation &&
+            
              <div onClick={() => handleSynthesis(inputLanguage, input)}
-              className='sound-icon1' />}
+              className='sound-icon1' />
 
             {/* <div className='mic-icon-activate' /> */}
-            <AudioRecorder inputLanguage={inputLanguage} />
+            <AudioRecorder inputLanguage={inputLanguage} setInput={setInput}/>
           </div>
 
         </div>

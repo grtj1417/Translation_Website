@@ -82,7 +82,7 @@ async function mi2sTts(inputLanguage, inputText) {
             inputLanguage = "tw_tl";
             break;
         case "zh":
-            speaker = "2825";
+            speaker = "2775";
             break;
         case "en":
             speaker = "2792";
