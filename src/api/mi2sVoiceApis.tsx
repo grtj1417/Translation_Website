@@ -54,11 +54,12 @@ async function mi2sStt(
         });
         return response;
     } else {
-        console.log(b64String);
         const response = await fetch(ASR_SERVER, {
-            mode: "no-cors",
+            // mode: "no-cors",
             method: "POST", 
+            referrerPolicy: "unsafe-url",
             headers: {
+
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
