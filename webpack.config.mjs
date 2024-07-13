@@ -22,7 +22,7 @@ export default {
         liveReload: true,
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+        extensions: ['.js', '.jsx', '.json'],
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -38,7 +38,8 @@ export default {
         }),
         new CopyWebpackPlugin({
             patterns: [
-                { from: 'public/images/*.svg', to: './images/[name].[ext]' },
+                { from: 'public/images/*.svg', to: './images/[name][ext]' },
+                { from: 'public/images/*.png', to: './images/[name][ext]' },
             ],
         }),
 
@@ -65,7 +66,7 @@ export default {
                 }
             },
             {
-                test: /\.(js|jsx|ts|tsx)$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',

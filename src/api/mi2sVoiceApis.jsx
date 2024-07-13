@@ -10,10 +10,10 @@ const ASR_HAKKA_SERVER =
     'http://140.116.245.147:9001/api/base64_recognition'; // 客語 ASR
 
 async function mi2sStt(
-    b64String: string, recognizeLanguage: string
+    b64String, recognizeLanguage
 ) {
 
-    var serviceId: string = "";
+    var serviceId = "";
 
     if (recognizeLanguage == "zh") {
         serviceId = 'A004';
