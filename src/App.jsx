@@ -124,7 +124,7 @@ function App() {
   }
 
   return (
-    
+
     <div className='container'>
       <h1 className='header'>
         {t("TITLE_TEXT")}
@@ -132,7 +132,7 @@ function App() {
 
       <Dialog setLanguage={setLanguage} i18n={i18n} />
 
-      <div className='main-content' style={{ height: showFullHistory ? "120vh" : "105vh" }}>
+      <div className='main-content'>
 
         <div className='input-area'>
           <div className='translation-title'>{t('translate')}</div>
@@ -215,37 +215,30 @@ function App() {
         {/* history */}
         <div className='history-area'>
           <div className='area-title'>{t('history')}</div>
-          <div className='history' style={{
-            height: showFullHistory ? "470px" : "350px"
-          }}>
+          <div className='history'>
             <div className='history-content history-content-title' aria-hidden="true">
-              <div>{t('input')}</div>
-              <div>{t('post-processing')}</div>
-              <hr></hr>
+              <div className='history-content-titles'>
+                <div>{t('input')}</div>
+                <div>{t('post-processing')}</div>
+              </div>
+              <hr/>
 
             </div>
-            {history.slice(showFullHistory ? 0 : -3).reverse().map((item, index) => (
+            {history.reverse().map((item, index) => (
               <HistoryComponent key={index}
-              translationItem={item}
-              index={index}
-              result={result}
+                translationItem={item}
+                index={index}
+                result={result}
+                history={history}
               ></HistoryComponent>
-              // <div key={index} className='history-content history-content-hover'>
-              //   <div>{item.before_translation}</div>
-              //   <div>{item.after_translation.postProcessedSentences[0]}</div>
-              //   <Collapse isOpened={true}>
-              //     <div>
-              //       sdfja;sldkfj
-              //     </div>
-              //   </Collapse>
-              // </div>
+              
             ))}
           </div>
-          {history.length > 3 && (
+          {/* {history.length > 3 && (
             <div onClick={() => setShowFullHistory(!showFullHistory)} className='expand-collapse'>
               {showFullHistory ? <img className='expand-collapse-icon' src='./images/arrow_up.svg' /> : <img className='expand-collapse-icon' src='./images/arrow_down.svg' />}
             </div>
-          )}
+          )} */}
         </div>
       </div>
 

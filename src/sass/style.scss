@@ -246,21 +246,23 @@ select {
     padding: 1.5rem 2.5rem 2rem;
 
     .input-area {
+        @include translateAndResultArea;
         grid-row: 1/2;
-        @include translateAndResultArea();
 
         .translation-title {
-            @include title();
+            @include title;
         }
 
         .input-dropdown {
-            grid-row: 2/3;
-            @include dropdown();
+            @include dropdown;
+            & {
+                grid-row: 2/3;
+            }
         }
 
         .translation-input {
+            @include textArea;
             grid-row: 3/4;
-            @include textArea();
             width: 100%;
             border-radius: 3px 3px 20px 20px;
             padding: 40px 33px 30px;
@@ -313,6 +315,7 @@ select {
                     transform: translateY(-2px);
                 }
             }
+
             .mic-icon-deactivate {
                 grid-column: 3/4;
                 justify-self: center;
@@ -341,19 +344,22 @@ select {
         margin-top: 0;
 
         .arrow {
-            grid-row: 3/4;
-            align-self: center;
-            @include btn();
-            width: 40px;
-            height: 40px;
-            padding: 5px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            background: url("../../public/images/arrow3_white.svg") no-repeat;
-            background-color: #fab106;
-            background-color: #3295b4;
-            border-radius: 10px;
-            box-shadow: 5px 6px 0px rgb(3, 30, 43);
+            @include btn;
+
+            & {
+                grid-row: 3/4;
+                align-self: center;
+                width: 40px;
+                height: 40px;
+                padding: 5px;
+                margin-bottom: 10px;
+                cursor: pointer;
+                background: url("../../public/images/arrow3_white.svg") no-repeat;
+                background-color: #fab106;
+                background-color: #3295b4;
+                border-radius: 10px;
+                box-shadow: 5px 6px 0px rgb(3, 30, 43);
+            }
 
             &:hover {
                 background: url("../../public/images/arrow3.svg") no-repeat;
@@ -384,33 +390,37 @@ select {
 
 
     .result-area {
+        @include translateAndResultArea;
         grid-column: 3/4;
         grid-row: 1/2;
-        @include translateAndResultArea();
 
         .result-title {
-            @include title();
+            @include title;
         }
 
         .translate-dropdown {
-            grid-row: 2/3;
-            @include dropdown();
+            @include dropdown;
+            & {
+                grid-row: 2/3;
+            }
         }
 
         .translation-result {
+            @include textArea;
             grid-row: 3/4;
-            @include textArea();
             border-radius: 3px 3px 20px 20px;
             position: relative;
         }
 
 
         .postprocessed {
-            @include btn();
-            position: absolute;
-            font-size: 16px;
-            right: 20px;
-            bottom: 20px;
+            @include btn;
+            & {
+                position: absolute;
+                font-size: 16px;
+                right: 20px;
+                bottom: 20px;
+            }
 
             .arrow2 {
                 width: 25px;
@@ -441,7 +451,7 @@ select {
         grid-column: 1/4;
 
         .history {
-            @include textArea();
+            @include textArea;
             height: 90%;
             padding: 40px 50px 20px;
             display: flex;
@@ -450,9 +460,7 @@ select {
 
             .history-content {
                 animation: fade 1s linear 0s;
-                width: 100%;
-                display: grid;
-                grid-column: 1fr 1fr;
+                // width: 100%;
 
                 @keyframes fade {
                     from {
@@ -468,60 +476,63 @@ select {
                     text-align: center;
                 }
 
-
                 &>div:nth-child(1) {
-                    grid-column: 1/2;
+                    width: 100%;
                 }
 
-                &>div:nth-child(2) {
-                    grid-column: 2/3;
+                .history-content-titles {
+                    color: #3295b4;
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                    // position: relative;
+                    justify-self: center;
+                    display: flex;
+
+                    &>div {
+                        width: 50%;
+                    }
                 }
+
+            }
+            #history-content-hr {
+                width: 97%;
+                border: .05rem solid rgb(118, 156, 165,0.6);
+                margin: 0 auto;
+                margin-bottom: 0;
             }
 
             .history-content-hover {
                 padding-bottom: 20px;
                 padding-top: 20px;
+
+                &:hover {
+                    transform: translateY(-2px);
+                    box-shadow: 2px 2px 5px #12596e;
+                    border-radius: 10px;
+                }
             }
 
-
-            .history-content-hover:hover {
-                transform: translateY(-2px);
-                box-shadow: 2px 2px 5px #12596e;
-                border-radius: 10px;
-            }
 
             .history-row {
                 width: 100%;
-                display: grid;
-                grid-template-columns: 1fr 1fr;
+                // display: grid;
+                // grid-template-columns: 1fr 1fr;
+                display: flex;
 
                 .history-input {
-                    grid-column: 1/2;
+                    flex: .5 .5;
                 }
 
                 .history-post {
-                    grid-column: 2/3;
+                    flex: .5 .5;
                 }
             }
 
-
             hr {
-                width: 200%;
-                border: .05rem solid rgb(212, 212, 212);
+                width: 100%;
+                border: .05rem solid rgba(53, 139, 156, 0.9);
                 margin: 0 auto;
                 margin-bottom: 0;
-            }
-
-            .history-content-title>div {
-                color: #3295b4;
-                font-weight: bold;
-                margin-bottom: 10px;
-                position: relative;
-                justify-self: center;
-            }
-
-            .history-content-title>div:nth-child(1) {
-                margin-left: 20px;
             }
 
             .details {
@@ -530,10 +541,13 @@ select {
                 gap: 1rem;
                 align-items: center;
                 margin: 10px 25px 0px;
+                // background-color: rgb(231, 231, 231);
+                padding: 20px;
 
                 .detail {
                     background-color: rgb(204, 228, 234);
-                    background-color: rgb(132, 194, 209);
+                    background-color: rgb(154, 205, 218);
+                    box-shadow: 1px 1px 3px rgb(131, 131, 131);
                     border-radius: 20px;
                     padding: 5px 12px;
                     font-weight: 600;
@@ -542,13 +556,20 @@ select {
 
                 .detail-title {
                     font-size: 18px;
-                    font-weight: 300;
-                    color: #ffffff;
+                    font-weight: 600;
+                    color: white;
                     margin-right: 8px;
                 }
 
                 .detail-arrow {
                     color: rgb(114, 114, 114);
+                }
+
+                #detail-hr {
+                    width: 100%;
+                    border: .05rem solid rgb(195, 216, 224);
+                    margin: 0 auto;
+                    margin-bottom: 0;
                 }
             }
         }
@@ -595,6 +616,10 @@ select {
 
     .translation-btns {
         flex: 1 1;
+    }
+
+    .transfer {
+        display: none;
     }
 
     .result-area {
