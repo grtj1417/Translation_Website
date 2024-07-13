@@ -1,9 +1,12 @@
-from flask import Flask, send_from_directory, request, jsonify
+from flask import Flask, send_from_directory, request, jsonify, send_file
+from synthesis import Client
+import base64
+import json
 import requests
 import os
 
 app = Flask(__name__, static_folder='dist')
-
+client = Client()
 @app.route('/')
 def serve():
     return send_from_directory(app.static_folder, 'index.html')
@@ -57,5 +60,35 @@ def sttIndo():
     selection = res['words_list'][0].replace("<SPOKEN_NOISE>", "").strip()
 
     return {"stt_output": selection, "message": "success"}
+
+@app.route('/tts', methods=['POST'])
+def tts():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "Invalid input"}), 400
+
+    audio_text = data.get("text")
+    audio_language = data.get("language")
+    audio_speaker = data.get("speaker")
+    
+    client.send(audio_language, audio_speaker, audio_text)
+    result = client.receive()
+    response_data = json.loads(result.decode("utf-8"))
+    # 先 save file 再送 file
+    if not result:
+        print('No result')
+    else:
+        response_data = json.loads(result.decode("utf-8"))
+        print(response_data['status'])
+        if response_data.get("status", False):  
+            result_file_data = base64.b64decode(response_data.get("bytes", ""))
+            with open(f"output.wav", 'wb') as f:
+                f.write(result_file_data)
+            print("File received complete")
+            
+    return send_file("output.wav")
+
+
 if __name__ == '__main__':
     app.run(ssl_context=('cert.pem', 'decrypted-key.pem'), host="0.0.0.0", debug=True, port=5173)
