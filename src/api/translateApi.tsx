@@ -115,6 +115,7 @@ async function mi2s_translation(src: string, tgt: string, inputString: string) {
                   "bpe_applied": "xxx",
                   "candidates": [translatedText, "", "", "", ""],
                   "domain": "FOOD",
+                  "synonymSub": "",
                   "nerSub": "xxx",
                   "postProcessedSentences": [translatedText, "", "", "", ""],
                   "raw_translation": [translatedText, "", "", "", ""]

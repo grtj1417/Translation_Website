@@ -1,21 +1,25 @@
 import { useState } from 'react';
 import { translate } from './api/translateApi';
+import { useTranslation } from 'react-i18next';
+import { Collapse } from 'react-collapse';
+import HistoryComponent from './component/History';
+import Dialog from './Dialog';
 import './App.css';
 import './sass/style.scss';
-import { useTranslation } from 'react-i18next';
 import './i18n';
 
 function App() {
   var emptyData = {
     "after_translation": {
       "bpe_applied": "",
-      "candidates": ["", "", "", "", ""],
+      "candidates": ["", "", "", "", ""], //4
       "domain": "",
-      "nerSub": "",
-      "postProcessedSentences": ["", "", "", "", ""],
+      "synonymSub": "", //2
+      "nerSub": "", //3
+      "postProcessedSentences": ["", "", "", "", ""], //5
       "raw_translation": ["", "", "", "", ""]
     },
-    "before_translation": "",
+    "before_translation": "", // 1
     "message": "",
   };
 
@@ -30,6 +34,7 @@ function App() {
   const [showFullHistory, setShowFullHistory] = useState(false);
 
   const { t, i18n } = useTranslation();
+  const [language, setLanguage] = useState('zh');
   const [inputLanguage, setInputLanguage] = useState('zh');
   const [translateTo, setTranslateTo] = useState('id');
 
@@ -42,11 +47,11 @@ function App() {
 
   const handleTranslate = async () => {
     try {
-      const element = document.querySelector('.translation-area-title2');
+      // const element = document.querySelector('.translation-area-title2');
       //前處理動畫
-      if (result.before_translation) {
-        element.classList.add('move-left-right');
-      }
+      // if (result.before_translation) {
+      //   element.classList.add('move-left-right');
+      // }
       console.log(input);
       const res = await translate(input, "zh2id_0528");
       console.log(res);
@@ -77,13 +82,15 @@ function App() {
       }
       console.log(res.after_translation.candidates[0]);
       setShowResult(res.after_translation.candidates[0]);
-      setHistory(prevHistory => [...prevHistory, res]);
+      if (res.before_translation !== "") {
+        setHistory(prevHistory => [...prevHistory, res]);
+      }
       console.log(history);
 
       // 等待動畫完成後移除className
-      element.addEventListener('animationend', () => {
-        element.classList.remove('move-left-right');
-      }, { once: true });
+      // element.addEventListener('animationend', () => {
+      //   element.classList.remove('move-left-right');
+      // }, { once: true });
 
     } catch (error) {
       console.error('Translation error:', error);
@@ -101,7 +108,7 @@ function App() {
       setValue("Candidates");
     }
     updateShowResult();
-  }
+  };
 
   const updateShowResult = () => {
     if (value === "Candidates") {
@@ -109,17 +116,22 @@ function App() {
     } else {
       setShowResult(result.after_translation.postProcessedSentences[0]);
     }
-  }
+  };
 
   const handleInputLanguageChange = (event) => {
-    const selectedLanguage = event.target.value;
-    setInputLanguage(selectedLanguage);
-    i18n.changeLanguage(selectedLanguage);
+    setInputLanguage(event.target.value);
   };
 
   const handleTranslateToChange = (event) => {
     setTranslateTo(event.target.value);
   };
+
+  const handleTranfer = () => {
+    const inputLan = translateTo;
+    const translateLan = inputLanguage;
+    setInputLanguage(inputLan);
+    setTranslateTo(translateLan);
+  }
 
   return (
     <div className='container'>
@@ -127,66 +139,81 @@ function App() {
         {t("TITLE_TEXT")}
       </h1>
 
+      <Dialog setLanguage={setLanguage} i18n={i18n} />
+
       <div className='main-content' style={{ height: showFullHistory ? "120vh" : "105vh" }}>
-        <div className='translation-area'>
-          <div className='input-area'>
-            <div className='translation-area-title1'>{t('translate')}</div>
-            <div>
-              <label></label>
 
-            </div>
-            <label htmlFor='translation-input'></label>
-            <div>
-              <textarea
-                className='translation-input'
-                name='translation-input'
-                id='translation-input'
-                type="text"
-                value={input}
-                onChange={handleInput}
-                placeholder={t('input_language')}
-                required
+        <div className='input-area'>
+          <div className='translation-title'>{t('translate')}</div>
+
+          <select className='input-dropdown' value={inputLanguage} onChange={handleInputLanguageChange}>
+            {languages.map((lang) => (
+              <option key={lang.code} value={lang.code}>
+                {lang.label}
+              </option>
+            ))}
+          </select>
+
+          <label htmlFor='translation-input'></label>
+          <textarea
+            className='translation-input'
+            name='translation-input'
+            id='translation-input'
+            type="text"
+            value={input}
+            onChange={handleInput}
+            placeholder={t('input_language')}
+            required
+          />
+
+          <div className='translate-icons'>
+            {result.before_translation && (
+              <img
+                className='domain-icon'
+                src={domainImgSrc}
+                alt=""
+                title={"Domain: " + result.after_translation.domain}
               />
-              {result.before_translation && <div className='sound-icon1'></div>}
-              {result.before_translation && (
-                <img
-                  className='domain-icon'
-                  src={domainImgSrc}
-                  alt=""
-                  title={"Domain: " + result.after_translation.domain}
-                />
-              )}
-            </div>
+            )}
+
+            {result.before_translation && <div className='sound-icon1' />}
+
+            <div className='mic-icon' />
           </div>
 
-          {/* preprocessed */}
-          <div className='preprocessed-area'>
-            <div className='translation-area-title2'>❱❱ {t('pre-processed')}</div>
-            <div className='preprocessed-area-result'>
-              {result.before_translation && (<p>SynonymSub : {result.after_translation.synonymSub}</p>)}
-              {result.before_translation && (<p>NerSub : {result.after_translation.nerSub}</p>)}
-            </div>
-          </div>
         </div>
 
 
         {/* translate btn */}
-        <div className='translation-submit'>
-          <div className='arrow3' onClick={handleTranslate}></div>
+        <div className='translation-btns'>
+          <div className='transfer' onClick={handleTranfer}></div>
+          <div className='arrow' onClick={handleTranslate}></div>
         </div>
 
 
         {/* result */}
         <div className='result-area'>
-          <div className='area-title'>{t('result')}</div>
+          <div className='result-title'>{t('result')}</div>
+
+          {/* <div className='custom-select'> */}
+          {/* <img className='dropdown-icon' src="./images/triangle-down" alt="" />  */}
+          <select className='translate-dropdown' value={translateTo} onChange={handleTranslateToChange}>
+            {languages.map((lang) => (
+              <option key={lang.code} value={lang.code}>
+                {lang.label}
+              </option>
+            ))}
+          </select>
+          {/* </div> */}
+
           <div className='translation-result'>
             {result.before_translation && (<p>{showResult}</p>)}
 
             {result.before_translation && (
               <div className='postprocessed' onClick={handlePostProcessed}>
-              <img className='arrow2' src="./images/arrow2.svg" alt="" />
-              {value}
-            </div>
+                <img className='arrow2' src="./images/arrow2.svg" alt="" />
+                {value}
+              </div>
             )}
             {result.before_translation && <div className='sound-icon2'></div>}
           </div>
@@ -199,16 +226,27 @@ function App() {
           <div className='history' style={{
             height: showFullHistory ? "470px" : "350px"
           }}>
-            <div className='history-content history-content-title'>
+            <div className='history-content history-content-title' aria-hidden="true">
               <div>{t('input')}</div>
               <div>{t('post-processing')}</div>
               <hr></hr>
+
             </div>
             {history.slice(showFullHistory ? 0 : -3).reverse().map((item, index) => (
-              <div key={index} className='history-content history-content-hover'>
-                <div>{item.before_translation}</div>
-                <div>{item.after_translation.postProcessedSentences[0]}</div>
-              </div>
+              <HistoryComponent key={index}
+              translationItem={item}
+              index={index}
+              result={result}
+              ></HistoryComponent>
+              // <div key={index} className='history-content history-content-hover'>
+              //   <div>{item.before_translation}</div>
+              //   <div>{item.after_translation.postProcessedSentences[0]}</div>
+              //   <Collapse isOpened={true}>
+              //     <div>
+              //       sdfja;sldkfj
+              //     </div>
+              //   </Collapse>
+              // </div>
             ))}
           </div>
           {history.length > 3 && (
@@ -218,7 +256,14 @@ function App() {
           )}
         </div>
       </div>
+
+      {/* bubbles */}
       <div className="bubbles">
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
+        <div className="bubble"></div>
         <div className="bubble"></div>
         <div className="bubble"></div>
         <div className="bubble"></div>

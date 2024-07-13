@@ -14,7 +14,7 @@ const resources = {
             "history": "History",
             "input": "Input",
             "post-processing": "Post-processing",
-            
+            "country": "Country"
         }
     },
     zh: {
@@ -28,6 +28,7 @@ const resources = {
             "history": "歷史紀錄",
             "input": "輸入",
             "post-processing": "後處理",
+            "country": "國家"
         }
     },
     id: {
@@ -41,6 +42,7 @@ const resources = {
             "history": "Catatan Sejarah",
             "input": "Memasuki",
             "post-processing": "Pengolahan pasca",
+            "country": "Bangsa"
         }
     }
 };
