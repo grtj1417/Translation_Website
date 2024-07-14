@@ -620,6 +620,15 @@ select {
         display: none;
     }
 
+    .translation-btns {
+        grid-template-rows: 1fr !important;
+    }
+
+    .arrow {
+        grid-row: 1/2 !important;
+        margin-top: 20px;
+    }
+
     .result-area {
         width: 100%;
         flex: 1 1;
@@ -650,7 +659,6 @@ select {
     .detail-title {
         flex: 1 1 100%;
         font-size: 16px !important;
-        color: red;
     }
 }
 
