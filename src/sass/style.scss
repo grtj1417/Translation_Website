@@ -627,8 +627,16 @@ select {
         flex: 1 1;
     }
 
+    .history {
+        padding: 20px;
+    }
+
     .history-area {
         flex: 1 1;
+    }
+
+    .detail {
+        width: 100%;
     }
 }
 
