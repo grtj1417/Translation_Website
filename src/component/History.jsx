@@ -7,8 +7,22 @@ export default class HistoryComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpened: false
+            isOpened: false,
+            isSmallThan768px: window.innerWidth < 768
         };
+    }
+
+    componentDidMount() {
+        window.addEventListener('resize', this.checkWindowWidth);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.checkWindowWidth);
+    }
+
+    checkWindowWidth = () => {
+        const isSmallThan768px = window.innerWidth < 768;
+        this.setState({ isSmallThan768px });
     }
 
     handleClick = () => {
@@ -25,36 +39,44 @@ export default class HistoryComponent extends Component {
             <div onClick={this.handleClick}>
                 <div key={index} className='history-content history-content-hover' style={{ backgroundColor: isOpened ? 'rgb(231, 231, 231)' : 'transparent' }}>
                     <div className='history-row'>
-                    <div className='history-input'>{translationItem.before_translation}</div>
-                    <div className='history-post'>{translationItem.after_translation.postProcessedSentences[0]}</div>
+                        <div className='history-input'>{translationItem.before_translation}</div>
+                        <div className='history-post'>{translationItem.after_translation.postProcessedSentences[0]}</div>
                     </div>
                     <Collapse isOpened={isOpened}>
                         <div className='details'>
-                            <hr id='detail-hr'/>
+                            <hr id='detail-hr' />
                             <div className='detail'>
                                 <span className='detail-title'>Before_translation:</span>
                                 <span>{result.before_translation}</span>
                             </div>
 
-                            <div className='detail-arrow'>❱❱</div>
+                            <div className='detail-arrow'>{this.state.isSmallThan768px ? '▾' : '❱❱'}</div>
+
                             <div className='detail'>
                                 <span className='detail-title'>SynonymSub:</span>
                                 <span>{result.after_translation.synonymSub}</span>
                             </div>
 
-                            <div className='detail-arrow'>❱❱</div>
+                            <div className='detail-arrow'>{this.state.isSmallThan768px ? '▾' : '❱❱'}</div>
+
                             <div className='detail'>
                                 <span className='detail-title'>NerSub:</span>
                                 <span>{result.after_translation.nerSub}</span>
                             </div>
 
-                            <div className='detail-arrow'>❱❱</div>
+                            <div className='detail-arrow'>{this.state.isSmallThan768px ? '▾' : '❱❱'}</div>
+
                             <div className='detail'>
                                 <span className='detail-title'>Candidates:</span>
                                 <span className='detail-content'>{result.after_translation.candidates[0]}</span>
                             </div>
 
-                            <div className='detail-arrow'>❱❱</div>
+                            {this.state.isSmallThan768px ? (
+                                <div className='detail-arrow'>▾</div>
+                            ) : (
+                                <div className='detail-arrow'>❱❱</div>
+                            )}
+
                             <div className='detail'>
                                 <span className='detail-title'>PostProcessedSentences:</span>
                                 <span className='detail-content'>{result.after_translation.postProcessedSentences[0]}</span>
@@ -62,9 +84,9 @@ export default class HistoryComponent extends Component {
                         </div>
                     </Collapse>
                 </div>
-                    {index !== history.length-1 && (
-                        <hr id='history-content-hr'/>
-                    )}
+                {index !== history.length - 1 && (
+                    <hr id='history-content-hr' />
+                )}
             </div>
         );
     }

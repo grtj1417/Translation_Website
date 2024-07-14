@@ -515,8 +515,6 @@ select {
 
             .history-row {
                 width: 100%;
-                // display: grid;
-                // grid-template-columns: 1fr 1fr;
                 display: flex;
 
                 .history-input {
@@ -628,15 +626,31 @@ select {
     }
 
     .history {
-        padding: 20px;
+        padding: 20px !important;
     }
 
     .history-area {
         flex: 1 1;
     }
 
+    .details {
+        justify-content: center;
+    }
+
+    .detail-arrow {
+        flex: 1 1 100%;
+    }
+
     .detail {
-        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .detail-title {
+        flex: 1 1 100%;
+        font-size: 16px !important;
+        color: red;
     }
 }
 
