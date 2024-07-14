@@ -515,8 +515,6 @@ select {
 
             .history-row {
                 width: 100%;
-                // display: grid;
-                // grid-template-columns: 1fr 1fr;
                 display: flex;
 
                 .history-input {
@@ -622,13 +620,45 @@ select {
         display: none;
     }
 
+    .translation-btns {
+        grid-template-rows: 1fr !important;
+    }
+
+    .arrow {
+        grid-row: 1/2 !important;
+        margin-top: 20px;
+    }
+
     .result-area {
         width: 100%;
         flex: 1 1;
     }
 
+    .history {
+        padding: 20px !important;
+    }
+
     .history-area {
         flex: 1 1;
+    }
+
+    .details {
+        justify-content: center;
+    }
+
+    .detail-arrow {
+        flex: 1 1 100%;
+    }
+
+    .detail {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .detail-title {
+        flex: 1 1 100%;
+        font-size: 16px !important;
     }
 }
 

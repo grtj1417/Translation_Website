@@ -243,11 +243,6 @@ function App() {
               
             ))}
           </div>
-          {/* {history.length > 3 && (
-            <div onClick={() => setShowFullHistory(!showFullHistory)} className='expand-collapse'>
-              {showFullHistory ? <img className='expand-collapse-icon' src='./images/arrow_up.svg' /> : <img className='expand-collapse-icon' src='./images/arrow_down.svg' />}
-            </div>
-          )} */}
         </div>
       </div>
 
