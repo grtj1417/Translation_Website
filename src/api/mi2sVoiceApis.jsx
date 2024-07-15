@@ -88,7 +88,7 @@ async function mi2sTts(inputLanguage, inputText) {
             speaker = "2792";
             break;
         case "id":
-            speaker = "2794";
+            speaker = "2974";
             break;
         default:
             throw new Error("Unsupported language");
