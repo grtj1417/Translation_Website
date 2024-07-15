@@ -238,7 +238,7 @@ select {
     overflow: auto;
     display: grid;
     grid-template-columns: 1fr 50px 1fr;
-    grid-template-rows: 1fr 2fr;
+    grid-template-rows: 300px 550px;
     row-gap: 1rem;
     column-gap: 1.5rem;
     background-image: linear-gradient(to right bottom, rgb(66, 93, 116), #33495c, #233646);
