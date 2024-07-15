@@ -30,7 +30,7 @@ function App() {
   const [input, setInput] = useState("");
   const [domainImgSrc, setDomainImgSrc] = useState("#");
   //後處理
-  const [value, setValue] = useState("PostProcessed");
+  const [value, setValue] = useState("後處理");
   const [showResult, setShowResult] = useState("");
   //history
   const [history, setHistory] = useState([]);
@@ -47,6 +47,10 @@ function App() {
     { code: 'zh', label: t('ZHTAG') },
     { code: 'id', label: t("INDOTAG") }
   ];
+
+    // useEffect(() => {
+    //   setValue(t("POSTTAG"));
+    // }, [t]);
 
   const handleTranslate = async () => {
     try {
@@ -98,16 +102,16 @@ function App() {
   };
 
   const handlePostProcessed = () => {
-    if (value === "Candidates") {
-      setValue("PostProcessed");
+    if (value === t("CAND")) {
+      setValue(t("POSTTAG"));
     } else {
-      setValue("Candidates");
+      setValue(t("CAND"));
     }
     updateShowResult();
   };
 
   const updateShowResult = () => {
-    if (value === "Candidates") {
+    if (value === t("CAND")) {
       setShowResult(result.after_translation.candidates[0]);
     } else {
       setShowResult(result.after_translation.postProcessedSentences[0]);

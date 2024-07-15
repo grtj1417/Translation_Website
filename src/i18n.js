@@ -17,7 +17,15 @@ const resources = {
             "country": "Country",
             "ENGTAG": "English",
             "ZHTAG": "Chinese",
-            "INDOTAG": "Indonesian"
+            "INDOTAG": "Indonesian",
+            "INPUT": "Input",
+            "SYNONYM": "Synonym Substituted",
+            "NERREPL": "NER Substituted",
+            "RAWOUTPUT": "Raw Output",
+            "POSTPROCESSED": "Post processed",
+            "NERREPLBACK": "NER Substite Back",
+            "POSTTAG": "PostProcessed",
+            "CAND": "Candidates"
         }
     },
     zh: {
@@ -34,7 +42,15 @@ const resources = {
             "country": "國家",
             "ENGTAG": "英文",
             "ZHTAG": "中文",
-            "INDOTAG": "印尼文"
+            "INDOTAG": "印尼文",
+            "INPUT": "輸入",
+            "SYNONYM": "同義詞替換後",
+            "NERREPL": "NER 替換後",
+            "RAWOUTPUT": "模組輸出",
+            "POSTPROCESSED": "後處理後",
+            "NERREPLBACK": "NER 替換回",
+            "POSTTAG": "後處理",
+            "CAND": "原始翻譯"
         }
     },
     id: {
@@ -51,7 +67,15 @@ const resources = {
             "country": "Bangsa",
             "ENGTAG": "Inggris",
             "ZHTAG": "Cina",
-            "INDOTAG": "Bahasa Indonesia"
+            "INDOTAG": "Bahasa Indonesia",
+            "INPUT": "Masukan",
+            "SYNONYM": "Setelah Penggantian Sinonim",
+            "NERREPL": "Setelah Penggantian NER",
+            "RAWOUTPUT": "Keluaran Modul",
+            "POSTPROCESSED": "Setelah Pasca Proses",
+            "NERREPLBACK": "Penggantian NER Kembali",
+            "POSTTAG": "Pasca Proses",
+            "CAND": "Terjemahan Asli"
         }
     }
 };
