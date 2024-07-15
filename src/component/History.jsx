@@ -48,28 +48,28 @@ export default class HistoryComponent extends Component {
                             <hr id='detail-hr' />
                             <div className='detail'>
                                 <span className='detail-title'>{t("INPUT")}:</span>
-                                <span>{result.before_translation}</span>
+                                <span>{translationItem.before_translation}</span>
                             </div>
 
                             <div className='detail-arrow'>{this.state.isSmallThan768px ? '▾' : '❱❱'}</div>
 
                             <div className='detail'>
                                 <span className='detail-title'>{t("SYNONYM")}:</span>
-                                <span>{result.after_translation.synonymSub}</span>
+                                <span>{translationItem.after_translation.synonymSub}</span>
                             </div>
 
                             <div className='detail-arrow'>{this.state.isSmallThan768px ? '▾' : '❱❱'}</div>
 
                             <div className='detail'>
                                 <span className='detail-title'>{t("NERREPL")}:</span>
-                                <span>{result.after_translation.nerSub}</span>
+                                <span>{translationItem.after_translation.nerSub}</span>
                             </div>
 
                             <div className='detail-arrow'>{this.state.isSmallThan768px ? '▾' : '❱❱'}</div>
 
                             <div className='detail'>
                                 <span className='detail-title'>{t("RAWOUTPUT")}:</span>
-                                <span className='detail-content'>{result.after_translation.raw_translation[0]}</span>
+                                <span className='detail-content'>{translationItem.after_translation.raw_translation[0]}</span>
                             </div>
 
                             {this.state.isSmallThan768px ? (
@@ -80,7 +80,7 @@ export default class HistoryComponent extends Component {
 
                             <div className='detail'>
                                 <span className='detail-title'>{t("POSTPROCESSED")}:</span>
-                                <span className='detail-content'>{result.after_translation.postProcessedSentences[0]}</span>
+                                <span className='detail-content'>{translationItem.after_translation.postProcessedSentences[0]}</span>
                             </div>
                             {this.state.isSmallThan768px ? (
                                 <div className='detail-arrow'>▾</div>
@@ -89,7 +89,7 @@ export default class HistoryComponent extends Component {
                             )}
                             <div className='detail'>
                                 <span className='detail-title'>{t("NERREPLBACK")}:</span>
-                                <span className='detail-content'>{result.after_translation.candidates[0]}</span>
+                                <span className='detail-content'>{translationItem.after_translation.candidates[0]}</span>
                             </div>
                         </div>
                     </Collapse>
