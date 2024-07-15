@@ -133,9 +133,9 @@ class Client:
 if __name__ == '__main__':
     args = argparse.ArgumentParser()
     args.add_argument('--language', type=str, default='id')
-    args.add_argument('--speaker', type=str, default='2794')
+    args.add_argument('--speaker', type=str, default='2974')
     # args.add_argument('--text', type=str, default="<zh>你好嗎？</zh><t>這個老頭</t>") # language = mix
-    args.add_argument('--text', type=str, default="saya suka apel")
+    args.add_argument('--text', type=str, default="saya ingin pergi ke Taipei")
 
     args = args.parse_args()
     client = Client()

@@ -83,7 +83,7 @@ def tts():
     audio_language = data.get("language")
     audio_speaker = data.get("speaker")
     client = Client()
-    client.send(audio_language, audio_speaker, audio_text)
+    client.send(audio_language, audio_speaker, audio_text.lower())
     result = client.receive()
     response_data = json.loads(result.decode("utf-8"))
     # 先 save file 再送 file
