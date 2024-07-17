@@ -83,7 +83,8 @@ function App() {
       console.log(res.after_translation.candidates[0]);
       setShowResult(res.after_translation.candidates[0]);
       if (res.before_translation !== "") {
-        setHistory(prevHistory => [...prevHistory.reverse(), res]);
+   
+        setHistory(prevHistory => [res, ...history]);
       }
       
 
@@ -237,7 +238,7 @@ function App() {
               <hr/>
 
             </div>
-            {history.reverse().map((item, index) => (
+            {history.map((item, index) => (
               <HistoryComponent key={index}
                 translationItem={item}
                 index={index}
