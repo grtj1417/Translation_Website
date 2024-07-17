@@ -34,7 +34,7 @@ function App() {
   const [showResult, setShowResult] = useState("");
   //history
   const [history, setHistory] = useState([]);
-  const [showFullHistory, setShowFullHistory] = useState(false);
+  // const [showFullHistory, setShowFullHistory] = useState(false);
 
   const { t, i18n } = useTranslation();
   const [language, setLanguage] = useState('zh');
@@ -83,9 +83,9 @@ function App() {
       console.log(res.after_translation.candidates[0]);
       setShowResult(res.after_translation.candidates[0]);
       if (res.before_translation !== "") {
-        setHistory(prevHistory => [...prevHistory, res]);
+        setHistory(prevHistory => [...prevHistory.reverse(), res]);
       }
-      console.log(history);
+      
 
     } catch (error) {
       console.error('Translation error:', error);

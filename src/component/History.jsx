@@ -41,7 +41,7 @@ export default class HistoryComponent extends Component {
                 <div key={index} className='history-content history-content-hover' style={{ backgroundColor: isOpened ? 'rgb(231, 231, 231)' : 'transparent' }}>
                     <div className='history-row'>
                         <div className='history-input'>{translationItem.before_translation}</div>
-                        <div className='history-post'>{translationItem.after_translation.postProcessedSentences[0]}</div>
+                        <div className='history-post'>{translationItem.after_translation.candidates[0]}</div>
                     </div>
                     <Collapse isOpened={isOpened}>
                         <div className='details'>
