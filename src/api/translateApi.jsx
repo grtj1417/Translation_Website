@@ -26,7 +26,7 @@ async function translate(input, model) {
     }
 }
 
-async function mi2s_translation(src, tgt, inputString) {
+async function mi2s_translation(src, tgt, inputString, isPrePost) {
     const specialurl = "http://140.116.245.147:1002/translation";
     const normalurl = "http://140.116.245.157:1002/translation";
     var model = "";
@@ -88,6 +88,9 @@ async function mi2s_translation(src, tgt, inputString) {
     // 如果跟印尼文有相關 call 147 
     var isSpecial = src == "zh" && tgt == "id";
     var url = isSpecial ? specialurl : normalurl;
+    if (!isPrePost && isSpecial) {
+        model = "zh2id_raw";
+    }
     var data = {
         "translation_text": inputString,
         "model": model,
@@ -110,6 +113,7 @@ async function mi2s_translation(src, tgt, inputString) {
 
         const responseData = await response.json();
         if (isSpecial) {
+            console.log(responseData);
             return responseData;
         } else {
             var translatedText = responseData.after_translation;

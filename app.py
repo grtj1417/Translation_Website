@@ -103,4 +103,4 @@ def tts():
 
 
 if __name__ == '__main__':
-    app.run(ssl_context=('cert.pem', 'decrypted-key.pem'), host="0.0.0.0", debug=True, port=5173)
+    app.run(ssl_context=('cert.pem', 'decrypted-key.pem'), host="0.0.0.0", debug=True, port=5174)

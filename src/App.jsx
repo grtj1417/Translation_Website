@@ -40,7 +40,8 @@ function App() {
   const [language, setLanguage] = useState('zh');
   const [inputLanguage, setInputLanguage] = useState('zh');
   const [translateTo, setTranslateTo] = useState('id');
-
+  const [isPrePost, setIsPrePost] = useState(true);
+  const handleClickIsPrePost = () => setIsPrePost(!isPrePost);
 
   const languages = [
     { code: 'en', label: t('ENGTAG')},
@@ -54,7 +55,7 @@ function App() {
 
   const handleTranslate = async () => {
     try {
-      const res = await mi2s_translation(inputLanguage, translateTo, input);
+      const res = await mi2s_translation(inputLanguage, translateTo, input, isPrePost);
       setResult(res);
 
       switch (res.after_translation.domain) {
@@ -169,6 +170,7 @@ function App() {
           />
 
           <div className='translate-icons'>
+
             {result.before_translation && (
               <img
                 className='domain-icon'
@@ -228,7 +230,10 @@ function App() {
 
         {/* history */}
         <div className='history-area'>
-          <div className='area-title'>{t('history')}</div>
+          <div className='area-title'>{t('history')}
+            <input id='isPrePost' type="checkbox" onChange={handleClickIsPrePost} checked={isPrePost} />
+            <label htmlFor="isPrePost" id='isPrePostText'>{t("ISPREPOST")}</label>
+          </div>
           <div className='history'>
             <div className='history-content history-content-title' aria-hidden="true">
               <div className='history-content-titles'>

@@ -445,6 +445,14 @@ select {
 
     }
 
+    #isPrePostText {
+        font-size: 18px;
+        font-family: 'Courier New', Courier, monospace;
+    }
+    #isPrePost {
+        margin-left: 10px;
+    }
+
 
     .history-area {
         grid-row: 2/3;
@@ -457,6 +465,10 @@ select {
             display: flex;
             flex-direction: column;
             box-sizing: border-box;
+
+            #isPrePost {
+                font-size: 15px;
+            }
 
             .history-content {
                 animation: fade 1s linear 0s;

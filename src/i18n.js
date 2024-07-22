@@ -25,7 +25,9 @@ const resources = {
             "POSTPROCESSED": "Post processed",
             "NERREPLBACK": "NER Substite Back",
             "POSTTAG": "PostProcessed",
-            "CAND": "Candidates"
+            "CAND": "Candidates",
+            "ISPREPOST":"Do you use pre- and post-processing?"
+
         }
     },
     zh: {
@@ -50,7 +52,8 @@ const resources = {
             "POSTPROCESSED": "後處理後",
             "NERREPLBACK": "NER 替換回",
             "POSTTAG": "後處理",
-            "CAND": "原始翻譯"
+            "CAND": "原始翻譯",
+            "ISPREPOST":"是否使用前後處理?"
         }
     },
     id: {
@@ -75,7 +78,8 @@ const resources = {
             "POSTPROCESSED": "Setelah Pasca Proses",
             "NERREPLBACK": "Penggantian NER Kembali",
             "POSTTAG": "Pasca Proses",
-            "CAND": "Terjemahan Asli"
+            "CAND": "Terjemahan Asli",
+            "ISPREPOST":"Apakah Anda menggunakan pra dan pasca pemrosesan?"
         }
     }
 };
